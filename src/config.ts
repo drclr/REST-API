@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-type processEnv_type = {
+type processEnvType = {
         PORT: number | undefined,
         DB_host: string | undefined,
         DB_user: string | undefined,
@@ -10,7 +10,7 @@ type processEnv_type = {
         KEY_token: string | undefined
 }
 
-type processEnv_type_required = {
+type processEnvTypeRequired = {
         PORT: number,
         DB_host: string,
         DB_user: string,
@@ -19,7 +19,7 @@ type processEnv_type_required = {
         KEY_token: string
 }
 
-function checkTypeOf_EnvVariables(processEnv: processEnv_type): processEnv_type_required {
+function checkTypeOfEnvVariables(processEnv: processEnvType): processEnvTypeRequired {
 
 
         for (const [, value] of Object.entries(processEnv)) {
@@ -27,11 +27,11 @@ function checkTypeOf_EnvVariables(processEnv: processEnv_type): processEnv_type_
                         throw new Error('env file not correctly filled');
                 }
         }
-        return processEnv as processEnv_type_required;
+        return processEnv as processEnvTypeRequired;
 }
 
 
-const processEnv: processEnv_type = {
+const processEnv: processEnvType = {
         PORT: (process.env.PORT != "") || (process.env.PORT != undefined) ? Number(process.env.PORT) : undefined,
         DB_host: process.env.DB_host,
         DB_user: process.env.DB_user,
@@ -40,4 +40,4 @@ const processEnv: processEnv_type = {
         KEY_token: process.env.KEY_token
 }
 
-export const config = checkTypeOf_EnvVariables(processEnv);
+export const config = checkTypeOfEnvVariables(processEnv);

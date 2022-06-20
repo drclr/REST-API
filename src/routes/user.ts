@@ -11,9 +11,8 @@ router.post('/login', UserController.login);
 router.get('/login/refresh', auth, UserController.loginAfterRefresh);
 router.get('/users', auth, UserController.getAllUsers);
 router.put('/avatar', auth, multer, UserController.addOneAvatar);
-router.put('/modifypassword', auth, UserController.modifyAccountPassword);
-router.put('/modifylastname', auth, UserController.modifyAccountLastname);
-router.delete('/deleteaccount', auth, UserController.deleteOneAccount);
+router.put('/password', auth, UserController.modifyAccountPassword);
+router.delete('/account', auth, UserController.deleteOneAccount);
 
 
 

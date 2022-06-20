@@ -23,8 +23,8 @@ Promise.all([sequelize.authenticate(), sequelize.sync()])
                         next();
                 });
                 application.use('/api/auth', userRoutes);
-                application.use('/api/auth/article', articleRoutes);
-                application.use('/api/auth/comment', commentRoutes);
+                application.use('/api/auth', articleRoutes);
+                application.use('/api/auth', commentRoutes);
         })
         .catch((err: Error) => {
                 application.use((req: Request, res: Response) => res.status(500).json({ message: 'DB error' }));

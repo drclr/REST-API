@@ -23,11 +23,6 @@ type BodyReqLogin = {
   password: string;
 }
 
-type BodyReqModifyLastName = {
-  lastname: string;
-
-}
-
 type BodyReqModifyPassword = {
   password: string;
   newpassword: string;
@@ -98,13 +93,13 @@ export function join(req: ReqCustom<BodyReqJoin>, res: Response) {
   if (checkPassword(req.body.password)) {
 
     bcrypt.hash(req.body.password, 10)
-      .then((pw_hashed) => {
+      .then((pwHashed) => {
         User.create(
           {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
-            password: pw_hashed,
+            password: pwHashed,
 
           }
         )
@@ -227,15 +222,6 @@ export async function getAllUsers(req: Request, res: Response) {
   }
 }
 
-export function modifyAccountLastname(req: ReqCustom<BodyReqModifyLastName>, res: Response) {
-
-
-  User.update({ lastname: req.body.lastname },
-    { where: { id: req.userIdToken } })
-    .then(() => res.status(201).json({ message: 'lastname updated' }))
-    .catch(() => res.status(403).json({ error: 'error' }));
-}
-
 export function modifyAccountPassword(req: ReqCustom<BodyReqModifyPassword>, res: Response) {
 
   User.findOne({ where: { id: req.userIdToken } })
@@ -247,8 +233,8 @@ export function modifyAccountPassword(req: ReqCustom<BodyReqModifyPassword>, res
               //if the password respects the conditions
               if (checkPassword(req.body.newpassword)) {
                 bcrypt.hash(req.body.newpassword, 10)
-                  .then((pw_hashed) => {
-                    User.update({ password: pw_hashed },
+                  .then((pwHashed) => {
+                    User.update({ password: pwHashed },
                       { where: { id: req.userIdToken } })
                       .then(() => res.status(201).json({ message: 'Le mot de passe a bien été mis à jour.' }))
                       .catch(() => res.status(500).json({ error: 'error' }));

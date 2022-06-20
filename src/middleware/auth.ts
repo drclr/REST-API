@@ -19,13 +19,13 @@ export function auth(req: ReqCustomAuth, res: Response, next: NextFunction) {
   if (req.headers.authorization != undefined) {
     const tken = req.headers.authorization.split(' ')[1];
     try {
-      const tken_decoded = jwtoken.verify(tken, config.KEY_token) as Token;
+      const tkenDecoded = jwtoken.verify(tken, config.KEY_token) as Token;
 
 
-      if ((tken_decoded instanceof Object) && ('userId' in tken_decoded)) {
+      if ((tkenDecoded instanceof Object) && ('userId' in tkenDecoded)) {
 
-        req.userIdToken = Number(tken_decoded.userId);
-        req.isAdminToken = tken_decoded.IsAdmin;
+        req.userIdToken = Number(tkenDecoded.userId);
+        req.isAdminToken = tkenDecoded.IsAdmin;
 
         next();
 

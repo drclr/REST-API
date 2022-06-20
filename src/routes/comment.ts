@@ -5,10 +5,10 @@ import * as CommentController from "../controllers/comment"
 
 const router: Router = express.Router();
 
-router.post('/create/article/:id', auth, CommentController.createOneComment);
-router.get('/all/article/:id', auth, CommentController.getAllCommentsOneArticle);
-router.get('/all/user', auth, CommentController.getAllCommentsOneUser);
-router.put('/update', auth, CommentController.updateOneComment);
-router.delete('/delete', auth, CommentController.deleteOneComment);
+router.post('/articles/:id/comment', auth, CommentController.createOneComment);
+router.get('/articles/:id/comments', auth, CommentController.getAllCommentsOneArticle);
+router.get('/user/comments', auth, CommentController.getAllCommentsOneUser);
+router.put('/comment', auth, CommentController.updateOneComment);
+router.delete('/comment', auth, CommentController.deleteOneComment);
 
 export const commentRoutes = router;

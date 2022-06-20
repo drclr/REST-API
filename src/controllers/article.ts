@@ -57,16 +57,6 @@ export async function getAllArticles(req: Request, res: Response) {
         }
 }
 
-export async function getAllArticlesOneUser(req: Request, res: Response) {
-        const ArticlesList = await Article.findAll({
-                where: { UserModelId: req.userIdToken },
-                attributes: ['id', 'content', 'createdAt']
-        }).catch(() => res.status(500).json({ message: 'error' }));
-        if (Array.isArray(ArticlesList)) {
-                return res.status(200).json(Object.assign({}, ArticlesList));
-        }
-}
-
 export function updateOneArticle(req: ReqCustom<BodyReqUpdate>, res: Response) {
         if (req.isAdminToken === true) {
                 Article.update({
